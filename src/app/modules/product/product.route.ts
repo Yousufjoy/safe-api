@@ -1,4 +1,3 @@
-
 import express from "express";
 import { ProductController } from "./product.controller";
 
@@ -10,5 +9,6 @@ router.get("/get-products", ProductController.getAllProducts);
 
 router.get("/:productId", ProductController.getSingleProduct);
 
-export const ProductRoutes = router;
+router.put("/:productId", ProductController.updateProduct);
 
+export const ProductRoutes = router;
