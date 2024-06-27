@@ -33,6 +33,6 @@ const productSchema = z.object({
 });
 
 // Type inference for the product schema
-type ProductInput = z.infer<typeof productSchema>;
+// type ProductInput = z.infer<typeof productSchema>;
 
 export default productSchema;
