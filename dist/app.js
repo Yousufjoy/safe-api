@@ -1,17 +1,21 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-// eslint-disable-next-line no-undef
 Object.defineProperty(exports, "__esModule", { value: true });
-// eslint-disable-next-line no-undef
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const product_route_1 = require("./app/modules/product/product.route");
+const order_route_1 = require("./app/modules/orders/order.route");
 const app = (0, express_1.default)();
-const port = 3000;
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
-});
+// Middleware
+app.use(express_1.default.json());
+app.use((0, cors_1.default)());
+// Application routes
+app.use("/api/v1/products", product_route_1.ProductRoutes);
+app.use("/api/v1/orders", order_route_1.OrderRoutes);
+const getAController = (req, res) => {
+    res.send("Hello World!");
+};
+app.get("/", getAController);
+exports.default = app;

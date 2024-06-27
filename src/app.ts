@@ -16,7 +16,7 @@ app.use("/api/v1/orders", OrderRoutes);
 
 
 const getAController = (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.send("Welcome to Safe-Api!!!!");
 };
 
 app.get("/", getAController);
