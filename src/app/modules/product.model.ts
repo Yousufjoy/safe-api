@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 import { TProductDocument, TInventory, TVariant } from "./product.interface";
 import validator from "validator";
 
-// Create a Schema corresponding to the document interface.
+// 2. Create a Schema corresponding to the document interface.
 const variantSchema = new Schema<TVariant>({
   type: { type: String, required: true },
   value: { type: String, required: true },
@@ -55,7 +55,7 @@ const productSchema = new Schema<TProductDocument>({
   },
 });
 
-// Create model
+// 3. Create model
 const ProductModel = model<TProductDocument>("Product", productSchema);
 
 export default ProductModel;

@@ -32,10 +32,30 @@ const deletProductFromDB = async (_id: string) => {
   const result = await ProductModel.findByIdAndDelete(_id);
   return result;
 };
+
+const searchProductsFromDB = async (searchTerm: string) => {
+  const [field, value] = searchTerm.split('=');
+  let query = {};
+  
+  if (field === 'name') {
+    query = { name: { $regex: value, $options: 'i' } };
+  } else {
+    query = {
+      $or: [
+        { name: { $regex: searchTerm, $options: 'i' } },
+        { description: { $regex: searchTerm, $options: 'i' } },
+      ]
+    };
+  }
+
+  const result = await ProductModel.find(query);
+  return result;
+};
 export const ProductServices = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   updateProductInDB,
   deletProductFromDB,
+  searchProductsFromDB,
 };

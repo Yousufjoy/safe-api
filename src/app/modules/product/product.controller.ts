@@ -89,7 +89,6 @@ const deleteProduct = async (req: Request, res: Response) => {
         data: null,
       });
     }
-
     res.status(200).json({
       success: true,
       message: "Product deleted successfully",
@@ -104,10 +103,43 @@ const deleteProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
+// Serach products
+const searchProducts = async (req: Request, res: Response) => {
+  try {
+    const { searchTerm } = req.params;
+    
+    if (!searchTerm) {
+      return res.status(400).json({
+        success: false,
+        message: "Search term is required",
+        data: null,
+      });
+    }
+
+    const result = await ProductServices.searchProductsFromDB(searchTerm);
+    
+    res.status(200).json({
+      success: true,
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+      data: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to search products",
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
+};
+
+
 export const ProductController = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  searchProducts
 };
